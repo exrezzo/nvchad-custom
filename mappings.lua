@@ -66,7 +66,7 @@ M.dap_go = {
       "<cmd> DapStepOut <CR>",
       "Step Out"
     },
-    ["<leader>gdt"] = {
+    ["<leader>dct"] = {
       function()
         require("dap-go").debug_test()
       end,
