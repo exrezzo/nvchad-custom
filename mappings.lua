@@ -35,47 +35,19 @@ M.dap = {
         sidebar.toggle(); -- or sidebar.open()
       end,
       "Toggle debugging sidebar"
-    }
-  }
+    },
+  },
 }
 
 M.dap_go = {
   plugin = true,
   n = {
-    ["<leader>dc"] = {
-      "<cmd> DapContinue <CR>",
-      "Continue"
-    },
-    ["<leader>ds"] = {
-      "<cmd> DapStop <CR>",
-      "Stop"
-    },
-    ["<leader>dt"] = {
-      "<cmd> DapToggle <CR>",
-      "Toggle"
-    },
-    ["<leader>di"] = {
-      "<cmd> DapStepInto <CR>",
-      "Step Into"
-    },
-    ["<leader>dv"] = {
-      "<cmd> DapStepOver <CR>",
-      "Step Over"
-    },
-    ["<leader>do"] = {
-      "<cmd> DapStepOut <CR>",
-      "Step Out"
-    },
     ["<leader>dct"] = {
       function()
         require("dap-go").debug_test()
       end,
+      "Debug test under cursor"
     },
-    ["<leader>dgl"] = {
-      function()
-        require("dap-go").debug_last()
-      end,
-    }
   }
 }
 

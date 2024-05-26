@@ -53,6 +53,15 @@ local plugins = {
           dap.listeners.before.event_exited.dapui_config = function()
             dapui.close()
           end
+
+          -- questi keymaps li setto qui perche' altrimenti non funzionano
+          -- se li metto in mappings.lua
+          vim.keymap.set("n", "<F1>", dap.continue, { desc = "debug continue" })
+          vim.keymap.set("n", "<F2>", dap.step_into, { desc = "debug step_into" })
+          vim.keymap.set("n", "<F3>", dap.step_over, { desc = "debug step_over" })
+          vim.keymap.set("n", "<F4>", dap.step_out, { desc = "debug step_out" })
+          vim.keymap.set("n", "<F5>", dap.step_back, { desc = "debug step_back" })
+          vim.keymap.set("n", "<F12>", dap.restart, { desc = "debug restart" })
         end,
       },
     },
