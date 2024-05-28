@@ -13,7 +13,16 @@ local plugins = {
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
-    end
+    end,
+    opts = {
+      capabilities = {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          },
+        },
+      },
+    },
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -81,5 +90,48 @@ local plugins = {
       require("core.utils").load_mappings("dap_go")
     end,
   },
+
+
+  -- per il testing:
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      -- "nvim-neotest/neotest-go",
+      "fredrikaverpil/neotest-golang",
+    },
+    config = function()
+      -- Commentato momentaneamente perche' non funziona.
+      -- Proviamo un attimo neotest-golang.
+
+
+      -- -- get neotest namespace (api call creates or returns namespace)
+      -- local neotest_ns = vim.api.nvim_create_namespace("neotest")
+      -- vim.diagnostic.config({
+      --   virtual_text = {
+      --     format = function(diagnostic)
+      --       local message =
+      --           diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+      --       return message
+      --     end,
+      --   },
+      -- }, neotest_ns)
+      -- require("neotest").setup({
+      --   -- your neotest config here
+      --   adapters = {
+      --     require("neotest-go"),
+      --   },
+      -- })
+
+      require("neotest").setup({
+        adapters = {
+          require("neotest-golang"), -- Registration
+        },
+      })
+    end,
+  }
 }
 return plugins
