@@ -61,7 +61,9 @@ local plugins = {
           vim.keymap.set("n", "<F3>", dap.step_over, { desc = "debug step_over" })
           vim.keymap.set("n", "<F4>", dap.step_out, { desc = "debug step_out" })
           vim.keymap.set("n", "<F5>", dap.step_back, { desc = "debug step_back" })
+          vim.keymap.set("n", "<F7>", dap.terminate, { desc = "debug terminate" })
           vim.keymap.set("n", "<F12>", dap.restart, { desc = "debug restart" })
+          vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "debug set_breakpoint" })
         end,
       },
     },

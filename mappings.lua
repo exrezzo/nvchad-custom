@@ -24,10 +24,6 @@ M.telescope = {
 M.dap = {
   plugin = true,
   n = {
-    ["<leader>db"] = {
-      "<cmd> DapToggleBreakpoint <CR>",
-      "Toggle Breakpoint at line"
-    },
     ["<leader>dus"] = {
       function()
         local widgets = require('dap.ui.widgets');
