@@ -9,6 +9,23 @@ local plugins = {
     },
   },
   {
+    "christoomey/vim-tmux-navigator",
+    event = "VeryLazy",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    config = function()
+      vim.keymap.set('n', '<C-Left>', '<cmd>TmuxNavigateLeft<CR>')
+      vim.keymap.set('n', '<C-Down>', '<cmd>TmuxNavigateDown<CR>')
+      vim.keymap.set('n', '<C-Up>', '<cmd>TmuxNavigateUp<CR>')
+      vim.keymap.set('n', '<C-Right>', '<cmd>TmuxNavigateRight<CR>')
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require "plugins.configs.lspconfig"
