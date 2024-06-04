@@ -26,6 +26,26 @@ local plugins = {
     end,
   },
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local harpoon = require("harpoon")
+
+      -- REQUIRED
+      harpoon:setup()
+      -- REQUIRED
+
+      vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "harpoon quick menu" })
+      vim.keymap.set("n", "<leader>ha", function() require("harpoon"):list():add() end, {desc = "harpoon file" })
+      vim.keymap.set("n", "<leader>1", function() require("harpoon"):list():select(1) end, {desc = "harpoon select 1"})
+      vim.keymap.set("n", "<leader>2", function() require("harpoon"):list():select(2) end, {desc = "harpoon select 2"})
+      vim.keymap.set("n", "<leader>3", function() require("harpoon"):list():select(3) end, {desc = "harpoon select 3"})
+      vim.keymap.set("n", "<leader>4", function() require("harpoon"):list():select(4) end, {desc = "harpoon select 4"})
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require "plugins.configs.lspconfig"
