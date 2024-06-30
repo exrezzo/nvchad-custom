@@ -37,12 +37,13 @@ local plugins = {
       harpoon:setup()
       -- REQUIRED
 
-      vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "harpoon quick menu" })
-      vim.keymap.set("n", "<leader>ha", function() require("harpoon"):list():add() end, {desc = "harpoon file" })
-      vim.keymap.set("n", "<leader>1", function() require("harpoon"):list():select(1) end, {desc = "harpoon select 1"})
-      vim.keymap.set("n", "<leader>2", function() require("harpoon"):list():select(2) end, {desc = "harpoon select 2"})
-      vim.keymap.set("n", "<leader>3", function() require("harpoon"):list():select(3) end, {desc = "harpoon select 3"})
-      vim.keymap.set("n", "<leader>4", function() require("harpoon"):list():select(4) end, {desc = "harpoon select 4"})
+      vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+        { desc = "harpoon quick menu" })
+      vim.keymap.set("n", "<leader>ha", function() require("harpoon"):list():add() end, { desc = "harpoon file" })
+      vim.keymap.set("n", "<leader>1", function() require("harpoon"):list():select(1) end, { desc = "harpoon select 1" })
+      vim.keymap.set("n", "<leader>2", function() require("harpoon"):list():select(2) end, { desc = "harpoon select 2" })
+      vim.keymap.set("n", "<leader>3", function() require("harpoon"):list():select(3) end, { desc = "harpoon select 3" })
+      vim.keymap.set("n", "<leader>4", function() require("harpoon"):list():select(4) end, { desc = "harpoon select 4" })
     end,
   },
   {
@@ -110,6 +111,7 @@ local plugins = {
           vim.keymap.set("n", "<F7>", dap.terminate, { desc = "debug terminate" })
           vim.keymap.set("n", "<F12>", dap.restart, { desc = "debug restart" })
           vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "debug set_breakpoint" })
+          vim.keymap.set("n", "<F10>", dapui.toggle, { desc = "toggle dapui view" })
         end,
       },
     },
@@ -124,10 +126,30 @@ local plugins = {
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)
       require("dap-go").setup(opts)
-      require("core.utils").load_mappings("dap_go")
+      -- require("core.utils").load_mappings("dap_go")
+
+      vim.keymap.set("n", "<leader>dct", require("dap-go").debug_test, { desc = "Debug test under cursor" })
     end,
   },
+  {
+    -- Ho aggiunto questo piccolo plugin che permette di colorare una window che ha 
+    -- una codifica in ANSI colors che non riesce a rendirezzare.
+    -- Mi può servire ad esempio nella finestra di output di dap-ui che non riesce a mostrare
+    -- i colori dei test Go scritti con cucumber
+    "m00qek/baleia.nvim",
+    version = "*",
+    config = function()
+      vim.g.baleia = require("baleia").setup({})
 
+      -- Command to colorize the current buffer
+      vim.api.nvim_create_user_command("BaleiaColorize", function()
+        vim.g.baleia.once(vim.api.nvim_get_current_buf())
+      end, { bang = true })
+
+      -- Command to show logs
+      vim.api.nvim_create_user_command("BaleiaLogs", vim.g.baleia.logger.show, { bang = true })
+    end,
+  },
 
   -- per il testing:
   {
@@ -168,6 +190,38 @@ local plugins = {
           require("neotest-golang"), -- Registration
         },
       })
+    end,
+  },
+  -- {
+  --   "vim-test/vim-test",
+  --   cmd = {
+  --     "TestNearest",
+  --     "TestFile",
+  --     "TestSuite",
+  --     "TestLast",
+  --     "TestVisit",
+  --   },
+  --   config = function()
+  --     vim.keymap.set('n', '<leader>o', ':TestNearest<CR>')
+  --     -- nmap <silent> <leader>T :TestFile<CR>
+  --     -- nmap <silent> <leader>a :TestSuite<CR>
+  --     -- nmap <silent> <leader>l :TestLast<CR>
+  --     -- nmap <silent> <leader>g :TestVisit<CR>
+  --   end
+  -- },
+  {
+    "vim-test/vim-test",
+    dependencies = {
+      "preservim/vimux"
+    },
+    event = "VeryLazy",
+    config = function()
+      vim.keymap.set("n", "<leader>t", ":TestNearest<CR>", {})
+      vim.keymap.set("n", "<leader>T", ":TestFile<CR>", {})
+      vim.keymap.set("n", "<leader>a", ":TestSuite<CR>", {})
+      vim.keymap.set("n", "<leader>l", ":TestLast<CR>", {})
+      vim.keymap.set("n", "<leader>g", ":TestVisit<CR>", {})
+      vim.cmd("let test#strategy = 'vimux'")
     end,
   }
 }
