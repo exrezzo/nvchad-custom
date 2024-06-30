@@ -37,7 +37,7 @@ local plugins = {
       harpoon:setup()
       -- REQUIRED
 
-      vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+      vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
         { desc = "harpoon quick menu" })
       vim.keymap.set("n", "<leader>ha", function() require("harpoon"):list():add() end, { desc = "harpoon file" })
       vim.keymap.set("n", "<leader>1", function() require("harpoon"):list():select(1) end, { desc = "harpoon select 1" })
