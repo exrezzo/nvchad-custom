@@ -1,5 +1,12 @@
 local M = {}
 
+-- disabilito keymap per l'apertura di un terminale orizzontale
+M.nvterm = {
+  n = {
+    ["<leader>h"] = { function() end }
+  }
+}
+
 M.general = {
   -- overwrite per la navigazione:
   n = {
