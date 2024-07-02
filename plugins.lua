@@ -225,6 +225,16 @@ local plugins = {
     lazy = false,
     config = function()
       require("nvim-treesitter.configs").setup({
+        ensure_installed = { "lua", "vim", "vimdoc", "go", "typescript", "json", "yaml", "javascript", "markdown", "regex" },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = '<c-space>',
+            node_incremental = '<c-space>',
+            scope_incremental = '<c-j>',
+            node_decremental = '<c-backspace>',
+          },
+        },
         textobjects = {
           select = {
             enable = true,
@@ -247,6 +257,10 @@ local plugins = {
             -- * method: eg 'v' or 'o'
             -- and should return the mode ('v', 'V', or '<c-v>') or a table
             -- mapping query_strings to modes.
+            ['ii'] = '@conditional.inner',
+            ['ai'] = '@conditional.outer',
+            ['il'] = '@loop.inner',
+            ['al'] = '@loop.outer',
             selection_modes = {
               ['@parameter.outer'] = 'v', -- charwise
               ['@function.outer'] = 'V',  -- linewise
