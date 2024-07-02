@@ -29,3 +29,11 @@ lspconfig.omnisharp.setup {
   filetypes = {"cs"},
   root_dir = util.root_pattern("*.sln"),
 }
+
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = {"typescript-language-server", "--stdio"},
+  filetypes = {"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx"},
+  root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+}
